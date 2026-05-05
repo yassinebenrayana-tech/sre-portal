@@ -1,59 +1,59 @@
 # sre-portal
 
-## ?? Description du Projet
+## Description du Projet
 
-**sre-portal** est un portail d'auto-service pour les équipes SRE (Site Reliability Engineer) et développeurs. Cette application Angular 21 permet la gestion, la provisionnement et la surveillance d'infrastructures cloud et on-premise en temps réel.
+**sre-portal** est un portail d'auto-service pour les Ã©quipes SRE (Site Reliability Engineer) et dÃ©veloppeurs. Cette application Angular 21 permet la gestion, la provisionnement et la surveillance d'infrastructures cloud et on-premise en temps rÃ©el.
 
-### Fonctionnalités principales :
-- ?? Authentification par rôle (Développeur / SRE Admin)
-- ?? Tableau de bord avec visualisation des métriques en temps réel
-- ?? Inventaire d'infrastructure avec gestion des ressources
-- ?? Provisionnement de nouvelles ressources
-- ?? Chartes d'analyse CPU et mémoire
-- ?? Recherche et filtrage des ressources
+### FonctionnalitÃ©s principales :
+- Authentification par rÃ´le (DÃ©veloppeur / SRE Admin)
+- Tableau de bord avec visualisation des mÃ©triques en temps rÃ©el
+- Inventaire d'infrastructure avec gestion des ressources
+- Provisionnement de nouvelles ressources
+- Chartes d'analyse CPU et mÃ©moire
+- Recherche et filtrage des ressources
 
 ---
 
-## ?? Comment Exécuter le Projet
+## Comment ExÃ©cuter le Projet
 
-### Prérequis :
+### PrÃ©requis :
 - Node.js 18+
 - npm 11.6.2+
 - Angular CLI 21.2.4
 
-### Étapes :
+### Ã‰tapes :
 
 1. **Cloner le projet** :
-`ash
+```bash
 git clone https://github.com/yassinebenrayana-tech/sre-portal.git
 cd sre-portal
-`
+```
 
-2. **Installer les dépendances** :
-`ash
+2. **Installer les dÃ©pendances** :
+```bash
 npm install
-`
+```
 
-3. **Démarrer le serveur de développement** :
-`ash
+3. **DÃ©marrer le serveur de dÃ©veloppement** :
+```bash
 npm start
-`
+```
 
-4. **Accéder à l'application** :
-Ouvrez votre navigateur et allez à : **http://localhost:4200/**
+4. **AccÃ©der Ã  l'application** :
+Ouvrez votre navigateur et allez Ã  : **http://localhost:4200/**
 
-5. **Arrêter le serveur** :
-Appuyez sur Ctrl+C dans le terminal
+5. **ArrÃªter le serveur** :
+Appuyez sur `Ctrl+C` dans le terminal
 
 ---
 
-## ?? Détails Techniques - 10 Points Clés
+## DÃ©tails Techniques - 10 Points ClÃ©s
 
-### 1?? **Directives Structurelles (@If et @For)**
+### 1. Directives Structurelles (@If et @For)
 
-Les directives structurelles sont utilisées dans **item-list.html** :
+Les directives structurelles sont utilisÃ©es dans **item-list.html** :
 
-`html
+```html
 <!-- @if directive dans item-list.html -->
 <span class="count-badge error" *ngIf="filteredResources().filter(r => r.status === 'Error').length > 0">
   {{ filteredResources().filter(r => r.status === 'Error').length }} Error
@@ -69,36 +69,36 @@ Les directives structurelles sont utilisées dans **item-list.html** :
     </td>
   </ng-container>
 </table>
-`
+```
 
-**Où utilisée ?** Dans les composants ItemList et Dashboard pour afficher les listes et conditions.
+**OÃ¹ utilisÃ©e ?** Dans les composants ItemList et Dashboard pour afficher les listes et conditions.
 
 ---
 
-### 2?? **Interpolation {{ }}**
+### 2. Interpolation {{ }}
 
-L'interpolation est utilisée pour afficher les données dynamiques :
+L'interpolation est utilisÃ©e pour afficher les donnÃ©es dynamiques :
 
-`html
+```html
 <!-- dashboard.html - Affichage des ressources totales -->
 <span class="kpi-value">{{ totalResources() }}</span>
 
-<!-- item-list.html - Affichage du nombre de ressources filtrées -->
+<!-- item-list.html - Affichage du nombre de ressources filtrÃ©es -->
 <span class="result-count">{{ filteredResources().length }} resource{{ filteredResources().length !== 1 ? 's' : '' }}</span>
 
 <!-- login.html - Affichage du logo -->
 <span class="logo-name">{{ 'SRE Hub' }}</span>
-`
+```
 
-**Utilisation** : Affiche le résultat d'expressions TypeScript directement dans le HTML.
+**Utilisation** : Affiche le rÃ©sultat d'expressions TypeScript directement dans le HTML.
 
 ---
 
-### 3?? **Property Binding [ ]**
+### 3. Property Binding [ ]
 
-La liaison de propriété est utilisée pour lier les données aux attributs HTML :
+La liaison de propriÃ©tÃ© est utilisÃ©e pour lier les donnÃ©es aux attributs HTML :
 
-`html
+```html
 <!-- dashboard.html - Liaison conditionnelle de classe -->
 <div class="health-badge" 
      [class.healthy]="healthPercentage() >= 80" 
@@ -114,18 +114,18 @@ La liaison de propriété est utilisée pour lier les données aux attributs HTML :
 <span class="kpi-value" [class.error]="errorResources() > 0" [class.success]="errorResources() === 0">
   {{ errorResources() }}
 </span>
-`
+```
 
-**Utilisation** : Change dynamiquement les styles et attributs selon l'état de l'application.
+**Utilisation** : Change dynamiquement les styles et attributs selon l'Ã©tat de l'application.
 
 ---
 
-### 4?? **Event Binding ( )**
+### 4. Event Binding ( )
 
-La liaison d'événement capture les interactions utilisateur :
+La liaison d'Ã©vÃ©nement capture les interactions utilisateur :
 
-`html
-<!-- login.html - Clic sur une carte de rôle -->
+```html
+<!-- login.html - Clic sur une carte de rÃ´le -->
 <div class="role-card fade-in-delay-1" (click)="login('Developer')">
   <h3>Developer</h3>
 </div>
@@ -137,17 +137,17 @@ La liaison d'événement capture les interactions utilisateur :
   placeholder="Search..."
   (input)="onSearch($any($event.target).value)"
 />
-`
+```
 
-**Utilisation** : Déclenche des actions TypeScript lorsque l'utilisateur interagit avec l'interface.
+**Utilisation** : DÃ©clenche des actions TypeScript lorsque l'utilisateur interagit avec l'interface.
 
 ---
 
-### 5?? **Two-Way Binding [(ngModel)]**
+### 5. Two-Way Binding [(ngModel)]
 
-La liaison bidirectionnelle n'est **pas utilisée** dans ce projet. À la place, on utilise les **signaux Angular** (approach moderne) pour la réactivité :
+La liaison bidirectionnelle n'est **pas utilisÃ©e** dans ce projet. Ã€ la place, on utilise les **signaux Angular** (approach moderne) pour la rÃ©activitÃ© :
 
-`	ypescript
+```typescript
 // Au lieu de [(ngModel)], on utilise des signaux :
 searchQuery = signal('');  // Dans item-list.ts
 
@@ -155,25 +155,25 @@ filteredResources = computed(() => {
   const q = this.searchQuery().toLowerCase().trim();
   // Filtrage automatique quand searchQuery change
 });
-`
+```
 
-`html
-<!-- On utilise l'event binding avec la propriété binding -->
+```html
+<!-- On utilise l'event binding avec la propriÃ©tÃ© binding -->
 <input
   [value]="searchQuery()"
   (input)="onSearch($any($event.target).value)"
 />
-`
+```
 
-**Pourquoi pas [(ngModel)] ?** Parce qu'Angular 21 préfère les **Signals** pour une meilleure performance et réactivité.
+**Pourquoi pas [(ngModel)] ?** Parce qu'Angular 21 prÃ©fÃ¨re les **Signals** pour une meilleure performance et rÃ©activitÃ©.
 
 ---
 
-### 6?? **Configuration du Routage**
+### 6. Configuration du Routage
 
 La configuration du routage se trouve dans **src/app/app.routes.ts** :
 
-`	ypescript
+```typescript
 import { Routes } from '@angular/router';
 import { Login } from './components/login/login';
 import { Dashboard } from './components/dashboard/dashboard';
@@ -185,51 +185,51 @@ export const routes: Routes = [
     { path: 'dashboard', component: Dashboard },
     { path: 'inventory', component: ItemList },
     { path: 'deploy', component: ItemCreate },
-    { path: '', redirectTo: '/login', pathMatch: 'full' }  // Redirection par défaut
+    { path: '', redirectTo: '/login', pathMatch: 'full' }  // Redirection par dÃ©faut
 ];
-`
+```
 
 **Fonctionnement** :
-- La route vide redirige vers /login
-- Chaque route est mappée à un composant
-- Utilisation du routing déclaratif avec standalone components
+- La route vide redirige vers `/login`
+- Chaque route est mappÃ©e Ã  un composant
+- Utilisation du routing dÃ©claratif avec `standalone` components
 
 ---
 
-### 7?? **Nombre de Pages/Composants Connectés par le Routage**
+### 7. Nombre de Pages/Composants ConnectÃ©s par le Routage
 
-**4 composants** sont connectés à travers le routage :
+**4 composants** sont connectÃ©s Ã  travers le routage :
 
 | Route | Composant | Description |
 |-------|-----------|-------------|
-| /login | Login | Page de connexion avec sélection de rôle |
-| /dashboard | Dashboard | Tableau de bord de surveillance |
-| /inventory | ItemList | Inventaire des ressources |
-| /deploy | ItemCreate | Provisionnement de nouvelles ressources |
+| `/login` | `Login` | Page de connexion avec sÃ©lection de rÃ´le |
+| `/dashboard` | `Dashboard` | Tableau de bord de surveillance |
+| `/inventory` | `ItemList` | Inventaire des ressources |
+| `/deploy` | `ItemCreate` | Provisionnement de nouvelles ressources |
 
 **Flux de navigation** :
-`
-Login ? Dashboard ? Inventory (liste des ressources)
-     ?
-     Deploy (créer nouvelles ressources)
-`
+```
+Login â†’ Dashboard â†’ Inventory (liste des ressources)
+     â†“
+     Deploy (crÃ©er nouvelles ressources)
+```
 
 Exemple de navigation dans le code :
-`	ypescript
+```typescript
 // login.ts
 this.router.navigate(['/dashboard']);
 
 // Dans les templates HTML
 <a routerLink="/deploy">Provision New</a>
-`
+```
 
 ---
 
-### 8?? **Affichage d'un Service**
+### 8. Affichage d'un Service
 
-Le service **AuthService** gère l'authentification :
+Le service **AuthService** gÃ¨re l'authentification :
 
-`	ypescript
+```typescript
 import { Injectable, signal } from '@angular/core';
 
 export type Role = 'Developer' | 'SRE Admin' | null;
@@ -261,22 +261,22 @@ export class AuthService {
     return this.currentUser()?.role === role;
   }
 }
-`
+```
 
-**Fichier** : src/app/services/auth.service.ts
+**Fichier** : `src/app/services/auth.service.ts`
 
 ---
 
-### 9?? **Logique à l'Intérieur du Service**
+### 9. Logique Ã  l'IntÃ©rieur du Service
 
-Le service **InfrastructureService** contient la logique métier :
+Le service **InfrastructureService** contient la logique mÃ©tier :
 
-`	ypescript
+```typescript
 @Injectable({ providedIn: 'root' })
 export class InfrastructureService {
   resources = signal<Resource[]>([...]);
   
-  // 1. Simulation de fluctuations de métriques en temps réel
+  // 1. Simulation de fluctuations de mÃ©triques en temps rÃ©el
   private fluctuateMetrics() {
     this.resources.update(res =>
       res.map(r => {
@@ -288,7 +288,7 @@ export class InfrastructureService {
     );
   }
 
-  // 2. Gestion des ressources : démarrage
+  // 2. Gestion des ressources : dÃ©marrage
   startResource(id: number): void {
     this.updateResourceStatus(id, 'Starting');
     setTimeout(() => {
@@ -297,7 +297,7 @@ export class InfrastructureService {
     }, 2000);
   }
 
-  // 3. Arrêt d'une ressource
+  // 3. ArrÃªt d'une ressource
   stopResource(id: number): void {
     this.updateResourceStatus(id, 'Stopping');
     setTimeout(() => {
@@ -318,24 +318,24 @@ export class InfrastructureService {
     this.resources.update(res => [...res, newResource]);
   }
 }
-`
+```
 
-**Logique métier** :
-- ? Gestion des ressources (CRUD)
-- ? Simulation de métriques CPU/Mémoire en temps réel
-- ? Transitions d'état (Starting ? Online ? Stopping ? Offline)
-- ? Validation des limites (CPU: 5-99%, Mémoire: 1-32GB)
+**Logique mÃ©tier** :
+- Gestion des ressources (CRUD)
+- Simulation de mÃ©triques CPU/MÃ©moire en temps rÃ©el
+- Transitions d'Ã©tat (Starting â†’ Online â†’ Stopping â†’ Offline)
+- Validation des limites (CPU: 5-99%, MÃ©moire: 1-32GB)
 
-**Fichier** : src/app/services/infrastructure.service.ts
+**Fichier** : `src/app/services/infrastructure.service.ts`
 
 ---
 
-### ?? **Quel Composant Utilise le Service ?**
+### 10. Quel Composant Utilise le Service ?
 
-Le service **InfrastructureService** est utilisé par **2 composants** :
+Le service **InfrastructureService** est utilisÃ© par **2 composants** :
 
 #### **1. Composant Dashboard** (dashboard.ts)
-`	ypescript
+```typescript
 export class Dashboard {
   private infrastructureService = inject(InfrastructureService);
 
@@ -352,11 +352,11 @@ export class Dashboard {
       .map(r => ({ name: r.name, value: r.cpuUsage }))
   );
 }
-`
-**Utilisation** : Affiche les KPIs, graphiques et statistiques en temps réel.
+```
+**Utilisation** : Affiche les KPIs, graphiques et statistiques en temps rÃ©el.
 
 #### **2. Composant ItemList** (item-list.ts)
-`	ypescript
+```typescript
 export class ItemList {
   private infrastructureService = inject(InfrastructureService);
   
@@ -369,82 +369,82 @@ export class ItemList {
     );
   });
 }
-`
+```
 **Utilisation** : Affiche la liste des ressources avec recherche et filtrage.
 
-**Injection de dépendance** :
-`	ypescript
+**Injection de dÃ©pendance** :
+```typescript
 private infrastructureService = inject(InfrastructureService);
-`
+```
 
 ---
 
-## ?? Structure du Projet
+## Structure du Projet
 
-`
+```
 sre-portal/
-+-- src/
-¦   +-- app/
-¦   ¦   +-- components/
-¦   ¦   ¦   +-- login/           # Composant de connexion
-¦   ¦   ¦   +-- dashboard/       # Tableau de bord
-¦   ¦   ¦   +-- item-list/       # Liste des ressources
-¦   ¦   ¦   +-- item-create/     # Créer une ressource
-¦   ¦   +-- services/
-¦   ¦   ¦   +-- auth.service.ts      # Service d'authentification
-¦   ¦   ¦   +-- infrastructure.service.ts  # Service d'infrastructure
-¦   ¦   +-- models/
-¦   ¦   ¦   +-- resource.model.ts    # Modèle de données
-¦   ¦   +-- app.routes.ts        # Configuration du routage
-¦   ¦   +-- app.ts              # Composant racine
-¦   +-- main.ts                 # Point d'entrée
-¦   +-- styles.scss             # Styles globaux
-+-- package.json
-+-- angular.json
-+-- tsconfig.json
-`
+â”œâ”€â”€ src/
+â”‚   â”œâ”€â”€ app/
+â”‚   â”‚   â”œâ”€â”€ components/
+â”‚   â”‚   â”‚   â”œâ”€â”€ login/           # Composant de connexion
+â”‚   â”‚   â”‚   â”œâ”€â”€ dashboard/       # Tableau de bord
+â”‚   â”‚   â”‚   â”œâ”€â”€ item-list/       # Liste des ressources
+â”‚   â”‚   â”‚   â””â”€â”€ item-create/     # CrÃ©er une ressource
+â”‚   â”‚   â”œâ”€â”€ services/
+â”‚   â”‚   â”‚   â”œâ”€â”€ auth.service.ts      # Service d'authentification
+â”‚   â”‚   â”‚   â””â”€â”€ infrastructure.service.ts  # Service d'infrastructure
+â”‚   â”‚   â”œâ”€â”€ models/
+â”‚   â”‚   â”‚   â””â”€â”€ resource.model.ts    # ModÃ¨le de donnÃ©es
+â”‚   â”‚   â”œâ”€â”€ app.routes.ts        # Configuration du routage
+â”‚   â”‚   â””â”€â”€ app.ts              # Composant racine
+â”‚   â”œâ”€â”€ main.ts                 # Point d'entrÃ©e
+â”‚   â””â”€â”€ styles.scss             # Styles globaux
+â”œâ”€â”€ package.json
+â”œâ”€â”€ angular.json
+â””â”€â”€ tsconfig.json
+```
 
 ---
 
-## ??? Scripts Disponibles
+## Scripts Disponibles
 
-`ash
-npm start           # Démarrer le serveur de développement
+```bash
+npm start           # DÃ©marrer le serveur de dÃ©veloppement
 npm run build       # Compiler le projet pour la production
 npm run watch       # Compiler en mode watch
-npm test            # Exécuter les tests
+npm test            # ExÃ©cuter les tests
 npm run serve:ssr   # Serveur avec SSR (Server-Side Rendering)
-`
+```
 
 ---
 
-## ?? Dépendances Principales
+## DÃ©pendances Principales
 
 - **Angular 21.2.7** : Framework frontend
 - **Angular Material 21.2.5** : Composants UI Material Design
-- **Ngx-Charts 23.1.0** : Bibliothèque de graphiques
+- **Ngx-Charts 23.1.0** : BibliothÃ¨que de graphiques
 - **Express 5.1.0** : Serveur Node.js (pour SSR)
-- **RxJS 7.8.0** : Programmation réactive
+- **RxJS 7.8.0** : Programmation rÃ©active
 
 ---
 
-## ?? Points Techniques Importants
+## Points Techniques Importants
 
-? **Standalone Components** : Tous les composants sont standalone: true  
-? **Signals** : Utilisation des signaux Angular pour la réactivité  
-? **Computed** : Propriétés calculées réactives  
-? **Injection de dépendances** : Utilisation de inject()  
-? **Material Design** : Interface moderne avec Angular Material  
-? **Routage déclaratif** : Configuration simple et claire  
-? **SCSS** : Styles avancés avec variables  
+- **Standalone Components** : Tous les composants sont `standalone: true`
+- **Signals** : Utilisation des signaux Angular pour la rÃ©activitÃ©
+- **Computed** : PropriÃ©tÃ©s calculÃ©es rÃ©actives
+- **Injection de dÃ©pendances** : Utilisation de `inject()`
+- **Material Design** : Interface moderne avec Angular Material
+- **Routage dÃ©claratif** : Configuration simple et claire
+- **SCSS** : Styles avancÃ©s avec variables
 
 ---
 
-## ?? Licence
+## Licence
 
-Ce projet est privé et appartient à l'équipe SRE.
+Ce projet est privÃ© et appartient Ã  l'Ã©quipe SRE.
 
 ---
 
 **Auteur** : yassinebenrayana-tech  
-**Dernier mise à jour** : Mai 2026
+**DerniÃ¨re mise Ã  jour** : Mai 2026
