@@ -1,0 +1,184 @@
+.sidenav-container {
+  height: 100vh;
+  background: transparent;
+}
+
+.sidenav {
+  width: 260px;
+  background: #0b0f19 !important;
+  border-right: 1px solid rgba(255,255,255,0.05) !important;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ── Logo / header ── */
+.nav-header {
+  height: 64px;
+  display: flex;
+  align-items: center;
+  padding: 0 20px;
+  gap: 12px;
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+  position: relative;
+  overflow: hidden;
+
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(0,242,254,0.3), transparent);
+  }
+
+  mat-icon {
+    color: #00f2fe;
+    font-size: 28px;
+    animation: pulse-glow 3s ease-in-out infinite;
+  }
+
+  .brand-text {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.1;
+
+    .brand-name {
+      font-size: 1.1rem;
+      font-weight: 700;
+      background: linear-gradient(90deg, #00f2fe 0%, #4facfe 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .brand-sub {
+      font-size: 0.65rem;
+      color: #8b949e;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      -webkit-text-fill-color: #8b949e;
+    }
+  }
+}
+
+@keyframes pulse-glow {
+  0%,100% { filter: drop-shadow(0 0 4px rgba(0,242,254,0.3)); }
+  50%      { filter: drop-shadow(0 0 12px rgba(0,242,254,0.7)); }
+}
+
+/* ── Nav list ── */
+.nav-section-label {
+  padding: 20px 20px 6px;
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  color: rgba(139,148,158,0.6);
+  text-transform: uppercase;
+}
+
+.nav-list {
+  padding: 8px 12px;
+  flex: 1;
+
+  a {
+    border-radius: 10px;
+    margin-bottom: 2px;
+    transition: all 0.2s ease;
+    height: 44px;
+    color: #8b949e !important;
+
+    mat-icon { color: #8b949e; font-size: 20px; }
+
+    &:hover {
+      background: rgba(255,255,255,0.04) !important;
+      color: #c9d1d9 !important;
+      mat-icon { color: #c9d1d9; }
+    }
+
+    &.active-link {
+      background: rgba(0,242,254,0.08) !important;
+      color: #00f2fe !important;
+      position: relative;
+      box-shadow: inset 0 0 20px rgba(0,242,254,0.04);
+
+      mat-icon { color: #00f2fe; }
+
+      &::before {
+        content: '';
+        position: absolute;
+        left: 0; top: 25%; bottom: 25%;
+        width: 3px;
+        background: linear-gradient(180deg, #00f2fe, #4facfe);
+        border-radius: 0 3px 3px 0;
+      }
+    }
+  }
+}
+
+/* ── Sidenav footer ── */
+.nav-footer {
+  padding: 16px;
+  border-top: 1px solid rgba(255,255,255,0.05);
+
+  .version-tag {
+    font-size: 0.7rem;
+    color: rgba(139,148,158,0.4);
+    text-align: center;
+  }
+}
+
+/* ── Top toolbar ── */
+.top-toolbar {
+  background: rgba(11,15,25,0.85) !important;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+  height: 64px;
+  padding: 0 20px !important;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+
+  .toolbar-title {
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: #c9d1d9;
+  }
+
+  .spacer { flex: 1 1 auto; }
+
+  .user-profile {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    .user-info {
+      text-align: right;
+      .user-name  { font-size: 0.85rem; font-weight: 600; color: #c9d1d9; }
+      .user-role  { font-size: 0.7rem; color: #00f2fe; }
+    }
+
+    .avatar {
+      width: 36px; height: 36px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #00f2fe, #4facfe);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.85rem; font-weight: 700;
+      color: #0b0f19;
+    }
+
+    button.logout-btn {
+      color: #8b949e;
+      transition: color 0.2s;
+      &:hover { color: #ff1744; }
+    }
+  }
+}
+
+/* ── Main content ── */
+main {
+  padding: 28px;
+  background: var(--color-bg, #080c14);
+  min-height: calc(100vh - 64px);
+}

@@ -1,0 +1,144 @@
+<div class="provision-header fade-in">
+  <div>
+    <h1>Provision Resource</h1>
+    <p>Deploy new infrastructure following SRE naming standards</p>
+  </div>
+</div>
+
+<div class="provision-layout">
+  <!-- Form card -->
+  <mat-card class="provision-card glass-panel fade-in-delay-1">
+    <mat-card-header>
+      <mat-icon mat-card-avatar>rocket_launch</mat-icon>
+      <mat-card-title>New Resource</mat-card-title>
+      <mat-card-subtitle>All fields required</mat-card-subtitle>
+    </mat-card-header>
+
+    <mat-card-content>
+      <form [formGroup]="provisionForm" (ngSubmit)="onSubmit()">
+
+        <div class="form-section">
+          <div class="section-label">
+            <span class="step-num">1</span>
+            <span>Identity</span>
+          </div>
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Resource Name</mat-label>
+            <mat-icon matPrefix>label_outline</mat-icon>
+            <input matInput formControlName="name" placeholder="E.g., prod-database-main">
+            <mat-hint>Format: (prod|dev|test)-[descriptive-name]</mat-hint>
+            <mat-error *ngIf="provisionForm.get('name')?.hasError('required')">Name is required</mat-error>
+            <mat-error *ngIf="provisionForm.get('name')?.hasError('invalidNaming')">
+              Must match: <strong>(prod|dev|test)-[name]</strong>
+            </mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="form-section">
+          <div class="section-label">
+            <span class="step-num">2</span>
+            <span>Configuration</span>
+          </div>
+          <div class="two-col">
+            <mat-form-field appearance="outline" class="full-width">
+              <mat-label>Resource Type</mat-label>
+              <mat-icon matPrefix>category</mat-icon>
+              <mat-select formControlName="type">
+                <mat-option *ngFor="let t of types" [value]="t">{{ t }}</mat-option>
+              </mat-select>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="full-width">
+              <mat-label>Region / Location</mat-label>
+              <mat-icon matPrefix>location_on</mat-icon>
+              <mat-select formControlName="location">
+                <mat-option *ngFor="let loc of locations" [value]="loc">{{ loc }}</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div class="form-section">
+          <div class="section-label">
+            <span class="step-num">3</span>
+            <span>Compute Size</span>
+          </div>
+          <div class="size-cards">
+            <label class="size-card" [class.selected]="provisionForm.get('size')?.value === 'small'">
+              <input type="radio" formControlName="size" value="small" style="display:none">
+              <mat-icon>memory</mat-icon>
+              <div class="size-info">
+                <span class="size-name">Small</span>
+                <span class="size-spec">2 vCPU · 4 GB RAM</span>
+              </div>
+              <div class="size-check"><mat-icon>check_circle</mat-icon></div>
+            </label>
+            <label class="size-card" [class.selected]="provisionForm.get('size')?.value === 'medium'">
+              <input type="radio" formControlName="size" value="medium" style="display:none">
+              <mat-icon>developer_board</mat-icon>
+              <div class="size-info">
+                <span class="size-name">Medium</span>
+                <span class="size-spec">4 vCPU · 8 GB RAM</span>
+              </div>
+              <div class="size-check"><mat-icon>check_circle</mat-icon></div>
+            </label>
+            <label class="size-card" [class.selected]="provisionForm.get('size')?.value === 'large'">
+              <input type="radio" formControlName="size" value="large" style="display:none">
+              <mat-icon>dns</mat-icon>
+              <div class="size-info">
+                <span class="size-name">Large</span>
+                <span class="size-spec">8 vCPU · 16 GB RAM</span>
+              </div>
+              <div class="size-check"><mat-icon>check_circle</mat-icon></div>
+            </label>
+          </div>
+        </div>
+
+        <div class="form-actions">
+          <button mat-button type="button" routerLink="/inventory" class="cancel-btn">
+            <mat-icon>arrow_back</mat-icon>
+            Cancel
+          </button>
+          <button mat-flat-button type="submit" class="deploy-btn" [disabled]="!provisionForm.valid">
+            <mat-icon>rocket_launch</mat-icon>
+            Deploy Resource
+          </button>
+        </div>
+      </form>
+    </mat-card-content>
+  </mat-card>
+
+  <!-- Preview card -->
+  <div class="preview-card glass-panel fade-in-delay-2">
+    <div class="preview-title">
+      <mat-icon>preview</mat-icon>
+      Resource Preview
+    </div>
+    <div class="preview-item">
+      <span class="preview-label">Name</span>
+      <span class="preview-value">{{ provisionForm.get('name')?.value || '—' }}</span>
+    </div>
+    <div class="preview-item">
+      <span class="preview-label">Type</span>
+      <span class="preview-value">{{ provisionForm.get('type')?.value }}</span>
+    </div>
+    <div class="preview-item">
+      <span class="preview-label">Location</span>
+      <span class="preview-value">{{ provisionForm.get('location')?.value }}</span>
+    </div>
+    <div class="preview-item">
+      <span class="preview-label">Size</span>
+      <span class="preview-value">{{ provisionForm.get('size')?.value | titlecase }}</span>
+    </div>
+    <div class="preview-item">
+      <span class="preview-label">Status</span>
+      <span class="status-badge deploying"><span class="badge-dot"></span>Deploying</span>
+    </div>
+
+    <div class="preview-divider"></div>
+    <div class="preview-note">
+      <mat-icon>info_outline</mat-icon>
+      Resource will be provisioned and reach <strong>Online</strong> state within 1–2 minutes.
+    </div>
+  </div>
+</div>

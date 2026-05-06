@@ -1,0 +1,145 @@
+﻿[35mPrerendered 0 static routes.[39m
+Application bundle generation failed. [6.873 seconds] - 2026-04-06T08:22:21.236Z
+
+node.exe : 
+[1m[33m[33mÔû▓ [43;3
+3m[[43;30mWARNING[43;3
+3m][0m [1mFile 
+'src\main.server.ts' 
+not found in TypeScript 
+compilation.[0m 
+[1m[35m[plugin 
+angular-compiler][0m
+Au caractère Ligne:1 : 1
++ & "C:\Program 
+Files\nodejs/node.exe" 
+"C:\Program 
+Files\nodejs/node_mo ...
++ ~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo      
+        : NotSpecified: 
+(    
+[1m[33m[33mÔ...r-co   
+ mpiler][0m:String) [  
+  ], RemoteException
+    + 
+FullyQualifiedError    
+Id : NativeCommandErr   
+ or
+ 
+
+    angular:main-server:
+angular:main-server:8:24
+:
+[37m      8 Ôöé export 
+{ default } from [32m'.
+/src/main.server'[37m;
+        ÔòÁ             
+            [32m~~~~~~~
+~~~~~~~~~~~~[0m
+
+  The file will be 
+bundled and included in 
+the output but will not 
+be type-checked at 
+build time. To remove 
+this message you can 
+add the file to the 
+TypeScript program via 
+the 'files' or 
+'include' property.
+
+
+[33mÔû▓ [43;33m[[43;3
+0mWARNING[43;33m][0m 
+[1mFile 
+'src\server.ts' not 
+found in TypeScript 
+compilation.[0m 
+[1m[35m[plugin 
+angular-compiler][0m
+
+    angular:ssr-entry:an
+gular:ssr-entry:2:24:
+[37m      2 Ôöé import 
+* as server from [32m'.
+/src/server'[37m;
+        ÔòÁ             
+            
+[32m~~~~~~~~~~~~~~[0m
+
+  The file will be 
+bundled and included in 
+the output but will not 
+be type-checked at 
+build time. To remove 
+this message you can 
+add the file to the 
+TypeScript program via 
+the 'files' or 
+'include' property.
+
+[39m[22m
+[1m[31m[31mX [41;31m
+[[41;97mERROR[41;31m]
+[0m [1mCould not 
+resolve "@angular/animat
+ions"[0m
+
+    node_modules/@swimla
+ne/ngx-charts/fesm2022/s
+wimlane-ngx-charts.mjs:9
+:52:
+[37m      9 Ôöé ...{ 
+trigger, transition, 
+style, animate } from [
+32m'@angular/animations'
+[37m;
+        ÔòÁ             
+                        
+            [32m~~~~~~~
+~~~~~~~~~~~~~~[0m
+
+  You can mark the path 
+"@angular/animations" 
+as external to exclude 
+it from the bundle, 
+which will remove this 
+error and leave the 
+unresolved path in the 
+bundle.
+
+
+[31mX [41;31m[[41;97m
+ERROR[41;31m][0m 
+[1mFile 'src\app\app.co
+nfig.server.ts' not 
+found in TypeScript 
+compilation.[0m 
+[1m[35m[plugin 
+angular-compiler][0m
+
+    
+src/main.server.ts:3:23:
+[37m      3 Ôöé import 
+{ config } from [32m'./
+app/app.config.server'[
+37m;
+        ÔòÁ             
+           [32m~~~~~~~~
+~~~~~~~~~~~~~~~~~[0m
+
+  Files containing 
+Angular metadata ('@Comp
+onent'/'@Directive'/etc.
+) must be part of the 
+TypeScript compilation. 
+You can ensure the file 
+is part of the 
+TypeScript program via 
+the 'files' or 
+'include' property.
+
+[39m[22m

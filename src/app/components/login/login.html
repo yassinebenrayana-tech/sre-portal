@@ -1,0 +1,61 @@
+<div class="login-wrapper">
+  <!-- Animated background particles -->
+  <div class="bg-grid"></div>
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+  <div class="orb orb-3"></div>
+
+  <div class="login-container glass-panel fade-in">
+    <!-- Logo -->
+    <div class="login-logo">
+      <div class="logo-icon">
+        <mat-icon>hub</mat-icon>
+      </div>
+      <div class="logo-text">
+        <span class="logo-name">SRE Hub</span>
+        <span class="logo-badge">Infrastructure Manager</span>
+      </div>
+    </div>
+
+    <h1>Welcome Back</h1>
+    <p class="subtitle">Select your role to access the self-service portal</p>
+
+    <div class="role-selector">
+      <div class="role-card fade-in-delay-1" (click)="login('Developer')">
+        <div class="role-icon dev-icon">
+          <mat-icon>code</mat-icon>
+        </div>
+        <div class="role-info">
+          <h3>Developer</h3>
+          <p class="role-sub">Provision &amp; Monitor</p>
+          <p class="role-desc">Deploy resources, manage standard clusters, monitor your services.</p>
+        </div>
+        <div class="role-features">
+          <span class="feature-tag"><mat-icon>check</mat-icon>Provision</span>
+          <span class="feature-tag"><mat-icon>check</mat-icon>Monitor</span>
+          <span class="feature-tag"><mat-icon>check</mat-icon>View Logs</span>
+        </div>
+        <div class="role-arrow"><mat-icon>arrow_forward</mat-icon></div>
+      </div>
+
+      <div class="role-card admin-card fade-in-delay-2" (click)="login('SRE Admin')">
+        <div class="role-icon admin-icon">
+          <mat-icon>shield</mat-icon>
+        </div>
+        <div class="role-info">
+          <h3>SRE Admin</h3>
+          <p class="role-sub">Full Access</p>
+          <p class="role-desc">Manage platform configs, approve deployments, handle incident response.</p>
+        </div>
+        <div class="role-features">
+          <span class="feature-tag"><mat-icon>check</mat-icon>All Dev Access</span>
+          <span class="feature-tag admin-tag"><mat-icon>check</mat-icon>Admin Panel</span>
+          <span class="feature-tag admin-tag"><mat-icon>check</mat-icon>RBAC Control</span>
+        </div>
+        <div class="role-arrow"><mat-icon>arrow_forward</mat-icon></div>
+      </div>
+    </div>
+
+    <p class="login-footer">This is a demo environment — no credentials required</p>
+  </div>
+</div>

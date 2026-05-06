@@ -1,0 +1,154 @@
+<div class="dashboard-header fade-in">
+  <div class="header-text">
+    <h1>Observability Board</h1>
+    <p>Real-time overview of your infrastructure · Auto-refreshes every 5s</p>
+  </div>
+  <div class="header-actions">
+    <div class="health-badge" [class.healthy]="healthPercentage() >= 80" [class.degraded]="healthPercentage() < 80 && healthPercentage() >= 50" [class.critical]="healthPercentage() < 50">
+      <span class="pulse-dot"></span>
+      {{ healthPercentage() }}% Healthy
+    </div>
+    <a class="quick-provision" routerLink="/deploy">
+      <mat-icon>rocket_launch</mat-icon>
+      Provision
+    </a>
+  </div>
+</div>
+
+<!-- ── KPI cards ── -->
+<div class="kpi-grid">
+  <div class="kpi-card glass-panel fade-in-delay-1">
+    <div class="kpi-icon icon-total"><mat-icon>hub</mat-icon></div>
+    <div class="kpi-info">
+      <span class="kpi-label">Total Resources</span>
+      <span class="kpi-value">{{ totalResources() }}</span>
+    </div>
+    <div class="kpi-trend up">+1 this week</div>
+  </div>
+
+  <div class="kpi-card glass-panel fade-in-delay-1">
+    <div class="kpi-icon icon-online"><mat-icon>check_circle</mat-icon></div>
+    <div class="kpi-info">
+      <span class="kpi-label">Online</span>
+      <span class="kpi-value success">{{ onlineResources() }}</span>
+    </div>
+    <div class="kpi-trend up">All systems go</div>
+  </div>
+
+  <div class="kpi-card glass-panel fade-in-delay-2">
+    <div class="kpi-icon icon-error"><mat-icon>warning_amber</mat-icon></div>
+    <div class="kpi-info">
+      <span class="kpi-label">Alerts / Errors</span>
+      <span class="kpi-value" [class.error]="errorResources() > 0" [class.success]="errorResources() === 0">{{ errorResources() }}</span>
+    </div>
+    <div class="kpi-trend" [class.down]="errorResources() > 0" [class.up]="errorResources() === 0">
+      {{ errorResources() > 0 ? 'Needs attention' : 'No incidents' }}
+    </div>
+  </div>
+
+  <div class="kpi-card glass-panel fade-in-delay-3">
+    <div class="kpi-icon icon-cpu"><mat-icon>memory</mat-icon></div>
+    <div class="kpi-info">
+      <span class="kpi-label">Avg CPU (Online)</span>
+      <span class="kpi-value" [class.warn]="avgCpu() > 70" [class.error]="avgCpu() > 90">{{ avgCpu() }}%</span>
+    </div>
+    <div class="kpi-bar">
+      <div class="kpi-bar-fill" [style.width.%]="avgCpu()" [class.warn]="avgCpu() > 70" [class.error]="avgCpu() > 90"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ── Charts row ── -->
+<div class="charts-row fade-in-delay-2">
+  <mat-card class="chart-card glass-panel">
+    <mat-card-header>
+      <mat-icon mat-card-avatar>bar_chart</mat-icon>
+      <mat-card-title>CPU Usage (%)</mat-card-title>
+      <mat-card-subtitle>Online resources only</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content class="chart-container">
+      <ngx-charts-bar-vertical
+        *ngIf="cpuChartData().length > 0"
+        [view]="[0, 260]"
+        [scheme]="colorScheme"
+        [results]="cpuChartData()"
+        [gradient]="true"
+        [xAxis]="true"
+        [yAxis]="true"
+        [showXAxisLabel]="true"
+        [showYAxisLabel]="true"
+        xAxisLabel="Resource"
+        yAxisLabel="CPU %"
+        [roundEdges]="true"
+        [animations]="true"
+      >
+      </ngx-charts-bar-vertical>
+    </mat-card-content>
+  </mat-card>
+
+  <mat-card class="chart-card chart-pie glass-panel">
+    <mat-card-header>
+      <mat-icon mat-card-avatar>donut_large</mat-icon>
+      <mat-card-title>Status Distribution</mat-card-title>
+      <mat-card-subtitle>All resources</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content class="chart-container">
+      <ngx-charts-pie-chart
+        *ngIf="statusPieData().length > 0"
+        [view]="[0, 260]"
+        [scheme]="pieColorScheme"
+        [results]="statusPieData()"
+        [gradient]="true"
+        [legend]="true"
+         [legendPosition]="LegendPosition.Below"
+        [labels]="false"
+        [doughnut]="true"
+        [animations]="true"
+      >
+      </ngx-charts-pie-chart>
+    </mat-card-content>
+  </mat-card>
+</div>
+
+<!-- ── Recent activity ── -->
+<mat-card class="activity-card glass-panel fade-in-delay-3">
+  <mat-card-header>
+    <mat-icon mat-card-avatar>timeline</mat-icon>
+    <mat-card-title>Resource Status</mat-card-title>
+    <mat-card-subtitle>Live snapshot</mat-card-subtitle>
+  </mat-card-header>
+  <mat-card-content>
+    <div class="resource-rows">
+      @for (resource of resources(); track resource.id) {
+        <div class="resource-row">
+          <div class="resource-row-left">
+            <span class="status-dot" [ngClass]="resource.status.toLowerCase()"></span>
+            <div>
+              <div class="resource-name">{{ resource.name }}</div>
+              <div class="resource-meta">{{ resource.type }} · {{ resource.location }}</div>
+            </div>
+          </div>
+          <div class="resource-row-right">
+            <div class="mini-metric">
+              <span class="metric-label">CPU</span>
+              <div class="mini-bar">
+                <div class="mini-bar-fill" [style.width.%]="resource.cpuUsage"
+                     [class.warn]="resource.cpuUsage > 70"
+                     [class.error-fill]="resource.cpuUsage > 90"></div>
+              </div>
+              <span class="metric-val">{{ resource.cpuUsage }}%</span>
+            </div>
+            <div class="mini-metric">
+              <span class="metric-label">RAM</span>
+              <div class="mini-bar">
+                <div class="mini-bar-fill ram" [style.width.%]="resource.memoryUsage / 32 * 100"></div>
+              </div>
+              <span class="metric-val">{{ resource.memoryUsage }}GB</span>
+            </div>
+            <span class="status-badge" [ngClass]="resource.status.toLowerCase()">{{ resource.status }}</span>
+          </div>
+        </div>
+      }
+    </div>
+  </mat-card-content>
+</mat-card>
